@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <title>Koremana類題生成イメージ</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      function changeValue(value, index) {
+        document.getElementById("val" + index).innerHTML = value / 100;
+      }
+    </script>
+
+    <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" }},
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true
+        },
+        "HTML-CSS": { matchFontHeight: false },
+        displayAlign: "left",
+        displayIndent: "2em"
+      });
+    </script>
+  </head>
+  <body>
+    <div class="header">
+    </div>
+    <div class="container">
+<!--      <h3>モデル確認</h3>
+      <form action="/upload_model" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" style="display:inline">
+        <input type="submit" value="モデルのアップロード">
+      </form>
+-->
+      <h3>代表題／解答例からの、類題とその解答生成</h3>
+
+      <h4>代表題</h4>
+      次の式を因数分解せよ。<br>
+      $x^2+4xy+3y^2+2x+10y-8$
+      <br>
+      <br>
+      答え：<br>
+      <font color="red">$(x+y+4)(x+3y-2)$</font><br>
+      <br>
+      ポイント：<br>
+      １つの文字について整理し、因数分解する<br>
+      $x^2+4xy+3y^2+2x+10y-8$<br>
+      $=x^2+4xy+2x+3y^2+10y-8$<br>
+      $=x^2+(4y+2)x+(3y^2+10y-8)$<br>
+      $=x^2+(4y+2)x+(y+4)(3y-2)$<br>
+      <br>
+      $=\{x+(y+4)\}\{x+(3y-2)\}$<br>
+      <br>
+      $=(x+y+4)(x+3y-2)$<br>
+      <br>
+      <br>
+      <br>
+
+      <div class="row">
+        <div class="col-xs-6">
+          <form action="/generate" method="get">
+          <input type="submit" value="類題生成">
+          （ルール：「$(x+ay+b)(x+cy+d)$への因数分解, $-10 < a,b,c,d <10$」）
+          </form>
+        </div>
+      </div>
+      <div>
+        {% if coef %}
+        <h4>類題</h4>
+        次の式を因数分解せよ。<br>
+        $x^2+{{coef[1]+coef[4]}}xy + {{coef[1]*coef[4]}}y^2 +{{coef[2]+coef[5]}}x +{{coef[1]*coef[5]+coef[2]*coef[4]}}y+{{coef[2]*coef[5]}}$
+        <br>
+        <br>
+        答え：<br>
+      <font color="red">$(x+{{coef[1]}}y+{{coef[2]}})(x+{{coef[4]}}y+{{coef[5]}})$</font><br>
+      <br>
+        １つの文字について整理し、因数分解する<br>
+        $x^2+ {{coef[1]+coef[4]}}xy + {{coef[1]*coef[4]}}y^2 +{{coef[2]+coef[5]}}x +{{coef[1]*coef[5]+coef[2]*coef[4]}}y+{{coef[2]*coef[5]}}$<br>
+        $=x^2+ {{coef[1]+coef[4]}}xy + {{coef[2]+coef[5]}}x + {{coef[1]*coef[4]}}y^2 +{{coef[1]*coef[5]+coef[2]*coef[4]}}y+{{coef[2]*coef[5]}}$<br>
+        $=x^2+ ({{coef[1]+coef[4]}}y + {{coef[2]+coef[5]}})x + ({{coef[1]*coef[4]}}y^2 +{{coef[1]*coef[5]+coef[2]*coef[4]}}y+{{coef[2]*coef[5]}})$<br>
+        $=x^2+ ({{coef[1]+coef[4]}}y + {{coef[2]+coef[5]}})x + ({{coef[1]}}y+{{coef[2]}})({{coef[4]}}y+{{coef[5]}})$<br>
+        <br>
+        $=\{x^2+({{coef[1]}}y+{{coef[2]}})\}\{x+({{coef[4]}}y+{{coef[5]}})\}$<br>
+        <br>
+        $=(x+{{coef[1]}}y+{{coef[2]}})(x+{{coef[4]}}y+{{coef[5]}})$<br>
+        <br>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
